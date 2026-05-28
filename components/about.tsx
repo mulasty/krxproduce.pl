@@ -7,7 +7,8 @@ import { Volume2, VolumeX, Play, Pause } from "lucide-react";
 export default function About() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [muted, setMuted] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [videoSrc, setVideoSrc] = useState("");
 
   const sendCommand = useCallback((command: string) => {
     const iframe = iframeRef.current;
@@ -24,28 +25,36 @@ export default function About() {
     setMuted(!muted);
   }, [muted, sendCommand]);
 
+  const togglePlay = useCallback(() => {
+    sendCommand(
+      isPlaying
+        ? '{"event":"command","func":"pauseVideo","args":""}'
+        : '{"event":"command","func":"playVideo","args":""}'
+    );
+    setIsPlaying(!isPlaying);
+  }, [isPlaying, sendCommand]);
+
   useEffect(() => {
-    if (isHovered) {
-      sendCommand('{"event":"command","func":"playVideo","args":""}');
-    } else {
-      sendCommand('{"event":"command","func":"pauseVideo","args":""}');
-    }
-  }, [isHovered, sendCommand]);
+    const timer = setTimeout(() => {
+      setVideoSrc(
+        "https://www.youtube.com/embed/Q64fpFz0UAU?si=aQXXbakNpKhX3rS5&autoplay=1&mute=1&start=0&enablejsapi=1&loop=1&playlist=Q64fpFz0UAU"
+      );
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section
       id="omnie"
       className="relative flex min-h-[80vh] items-center justify-center overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Video background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-black">
         <iframe
           ref={iframeRef}
           width="100%"
           height="100%"
-          src="https://www.youtube.com/embed/Q64fpFz0UAU?si=aQXXbakNpKhX3rS5&mute=1&start=0&enablejsapi=1&loop=1&playlist=Q64fpFz0UAU"
+          src={videoSrc}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -63,11 +72,11 @@ export default function About() {
       {/* Controls */}
       <div className="absolute right-6 top-6 z-30 flex items-center gap-3">
         <button
-          onClick={() => setIsHovered(!isHovered)}
-          aria-label={isHovered ? "Pauza" : "Odtwarzaj"}
+          onClick={togglePlay}
+          aria-label={isPlaying ? "Pauza" : "Odtwarzaj"}
           className="flex h-12 w-12 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-110 border border-white/20"
         >
-          {isHovered ? <Pause size={20} /> : <Play size={20} />}
+          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
         </button>
         <button
           onClick={toggleMute}
