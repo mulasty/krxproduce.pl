@@ -1,15 +1,25 @@
 "use client";
 
+import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-
-const stats = [
-  { value: "10+", label: "Lat doświadczenia" },
-  { value: "200+", label: "Zrealizowanych projektów" },
-  { value: "50+", label: "Zadowolonych klientów" },
-  { value: "100%", label: "Zaangażowania" },
-];
+import { Volume2, VolumeX } from "lucide-react";
 
 export default function About() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  const toggleMute = useCallback(() => {
+    const iframe = iframeRef.current;
+    if (!iframe || !iframe.contentWindow) return;
+
+    const command = muted
+      ? '{"event":"command","func":"unMute","args":""}'
+      : '{"event":"command","func":"mute","args":""}';
+
+    iframe.contentWindow.postMessage(command, "*");
+    setMuted(!muted);
+  }, [muted]);
+
   return (
     <section id="omnie" className="relative py-32 overflow-hidden">
       <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-accent/5 blur-[120px]" />
@@ -58,9 +68,10 @@ export default function About() {
           >
             <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-accent/10">
               <iframe
+                ref={iframeRef}
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/Q64fpFz0UAU?si=aQXXbakNpKhX3rS5&autoplay=1&mute=1&start=0"
+                src="https://www.youtube.com/embed/Q64fpFz0UAU?si=aQXXbakNpKhX3rS5&autoplay=1&mute=1&start=0&enablejsapi=1"
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -69,6 +80,15 @@ export default function About() {
                 className="h-full w-full"
               ></iframe>
             </div>
+
+            {/* Sound toggle button */}
+            <button
+              onClick={toggleMute}
+              aria-label={muted ? "Włącz dźwięk" : "Wyłącz dźwięk"}
+              className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 hover:scale-110 border border-white/10"
+            >
+              {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+            </button>
           </motion.div>
         </div>
       </div>
