@@ -58,9 +58,19 @@ export default function Footer() {
           <span className="text-foreground">Produce</span>
         </motion.div>
 
-        <p className="text-sm text-neutral-500">
-          © {new Date().getFullYear()} KRX Produce. Wszelkie prawa zastrzeżone.
-        </p>
+        <div className="flex flex-col items-center gap-1 text-sm">
+          <p className="text-neutral-500">
+            © {new Date().getFullYear()} KRX Produce. Wszelkie prawa zastrzeżone.
+          </p>
+          <a
+            href="https://mulagroupwww.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-500 hover:text-accent transition-colors duration-300"
+          >
+            Stronę stworzyła <span className="font-medium text-neutral-400 hover:text-accent">MulaGroup</span>
+          </a>
+        </div>
 
         <div className="flex items-center gap-5">
           {socialLinks.map((social) => (
