@@ -37,7 +37,7 @@ export default function About() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setVideoSrc(
-        "https://www.youtube.com/embed/Q64fpFz0UAU?si=aQXXbakNpKhX3rS5&autoplay=1&mute=1&start=0&enablejsapi=1&loop=1&playlist=Q64fpFz0UAU"
+        "https://www.youtube.com/embed/Q64fpFz0UAU?si=aQXXbakNpKhX3rS5&autoplay=1&mute=1&start=0&enablejsapi=1&loop=1&playlist=Q64fpFz0UAU&controls=0&modestbranding=1&rel=0&iv_load_policy=3"
       );
     }, 500);
     return () => clearTimeout(timer);
@@ -58,7 +58,8 @@ export default function About() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className="h-full w-full"
+            className="h-full w-full pointer-events-none"
+            style={{ filter: "brightness(1.35) contrast(1.05)" }}
           ></iframe>
         </div>
 
