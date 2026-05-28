@@ -39,56 +39,50 @@ export default function About() {
       setVideoSrc(
         "https://www.youtube.com/embed/Q64fpFz0UAU?si=aQXXbakNpKhX3rS5&autoplay=1&mute=1&start=0&enablejsapi=1&loop=1&playlist=Q64fpFz0UAU"
       );
-    }, 3000);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section
-      id="omnie"
-      className="relative flex min-h-[80vh] items-center justify-center overflow-hidden"
-    >
-      {/* Video background */}
-      <div className="absolute inset-0 bg-black">
-        <iframe
-          ref={iframeRef}
-          width="100%"
-          height="100%"
-          src={videoSrc}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          className="h-full w-full object-cover"
-        ></iframe>
+    <section id="omnie" className="relative overflow-hidden">
+      {/* Hero 2 — Video on top */}
+      <div className="relative w-full">
+        <div className="mx-auto aspect-video w-full max-w-6xl overflow-hidden rounded-none sm:rounded-2xl sm:my-8">
+          <iframe
+            ref={iframeRef}
+            width="100%"
+            height="100%"
+            src={videoSrc}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="h-full w-full"
+          ></iframe>
+        </div>
+
+        {/* Controls on video */}
+        <div className="absolute right-4 top-4 z-30 flex items-center gap-3 sm:right-8 sm:top-8">
+          <button
+            onClick={togglePlay}
+            aria-label={isPlaying ? "Pauza" : "Odtwarzaj"}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 hover:scale-110 border border-white/10"
+          >
+            {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+          </button>
+          <button
+            onClick={toggleMute}
+            aria-label={muted ? "Włącz dźwięk" : "Wyłącz dźwięk"}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 hover:scale-110 border border-white/10"
+          >
+            {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+          </button>
+        </div>
       </div>
 
-      {/* Bright overlays for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background/50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30" />
-      <div className="absolute inset-0 bg-black/10" />
-
-      {/* Controls */}
-      <div className="absolute right-6 top-6 z-30 flex items-center gap-3">
-        <button
-          onClick={togglePlay}
-          aria-label={isPlaying ? "Pauza" : "Odtwarzaj"}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-110 border border-white/20"
-        >
-          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-        </button>
-        <button
-          onClick={toggleMute}
-          aria-label={muted ? "Włącz dźwięk" : "Wyłącz dźwięk"}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-110 border border-white/20"
-        >
-          {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-20 mx-auto max-w-4xl px-6 py-32 text-center">
+      {/* Text below video */}
+      <div className="relative mx-auto max-w-4xl px-6 py-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +95,7 @@ export default function About() {
           <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
             Kilka słów o mnie
           </h2>
-          <div className="mt-8 space-y-5 text-lg text-neutral-100 leading-relaxed">
+          <div className="mt-8 space-y-5 text-lg text-neutral-300 leading-relaxed">
             <p>
               Jestem doświadczonym grafikiem zajmującym się tą dziedziną od
               wielu lat. Moje doświadczenie obejmuje pracę zarówno w agencjach
