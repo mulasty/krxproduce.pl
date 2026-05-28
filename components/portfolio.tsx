@@ -22,6 +22,7 @@ const images = [
 const videos = [
   "https://www.youtube.com/embed/cV4d65AP3qU?si=A1etxxavT-1rPLzT",
   "https://www.youtube.com/embed/5GbnT_Z6CD0?si=E3rjJkCtdsDJpIfn",
+  "https://www.youtube.com/embed/P6Q-Ae8NcLo?si=LL27Jbi9hLEE05vx",
 ];
 
 export default function Portfolio() {
