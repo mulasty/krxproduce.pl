@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://krxproducepl.vercel.app";
+const SITE_URL = "https://krxproduce.pl";
 const OG_IMAGE = `${SITE_URL}/og-image.png?v=2`;
 
 export const viewport: Viewport = {
@@ -24,8 +24,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "KRX Produce — Filmowanie & Projektowanie Graficzne",
-  description:
-    "Profesjonalne usługi filmowania, montażu, projektowania graficznego i identyfikacji wizualnej. KRX Produce to doświadczenie, kreatywność i dbałość o detale.",
+    description:
+      "KRX Produce — profesjonalne usługi filmowania, montażu video, projektowania graficznego (logo, banery, ulotki, wizytówki, plakaty) oraz identyfikacji wizualnej. Doświadczenie, kreatywność i dbałość o każdy detal.",
   keywords: [
     "filmowanie",
     "montaż video",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     siteName: "KRX Produce",
     title: "KRX Produce — Filmowanie & Projektowanie Graficzne",
     description:
-      "Profesjonalne usługi filmowania, montażu, projektowania graficznego i identyfikacji wizualnej.",
+      "KRX Produce — profesjonalne usługi filmowania, montażu video, projektowania graficznego (logo, banery, ulotki, wizytówki, plakaty) oraz identyfikacji wizualnej. Doświadczenie, kreatywność i dbałość o każdy detal.",
     images: [
       {
         url: OG_IMAGE,
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "KRX Produce — Filmowanie & Projektowanie Graficzne",
     description:
-      "Profesjonalne usługi filmowania, montażu, projektowania graficznego i identyfikacji wizualnej.",
+      "KRX Produce — profesjonalne usługi filmowania, montażu video, projektowania graficznego (logo, banery, ulotki, wizytówki, plakaty) oraz identyfikacji wizualnej. Doświadczenie, kreatywność i dbałość o każdy detal.",
     images: [OG_IMAGE],
   },
   icons: {
@@ -108,6 +108,29 @@ export default function RootLayout({
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "KRX Produce",
+              url: SITE_URL,
+              description:
+                "KRX Produce — profesjonalne usługi filmowania, montażu video, projektowania graficznego (logo, banery, ulotki, wizytówki, plakaty) oraz identyfikacji wizualnej. Doświadczenie, kreatywność i dbałość o każdy detal.",
+              sameAs: [
+                "https://www.facebook.com/KRXPRODUCE",
+                "https://www.instagram.com/krxproduce/",
+                "https://www.youtube.com/@merol1",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                availableLanguage: "Polish",
+              },
+            }),
+          }}
+        />
       </head>
       <body className="min-h-full">{children}</body>
     </html>
