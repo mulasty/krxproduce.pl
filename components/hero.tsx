@@ -116,8 +116,10 @@ export default function Hero() {
         >
           {splitTitle("KRX")}
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-amber-200">
-            {splitTitle("Produce")}
+          <span className="word inline-block overflow-hidden mr-[0.3em]">
+            <span className="inline-block bg-gradient-to-r from-white via-cyan-100 to-amber-200 bg-clip-text text-transparent">
+              Produce
+            </span>
           </span>
         </h1>
 
