@@ -35,40 +35,23 @@ async function main() {
 
   console.log("✓ Logo recolored to cyan");
 
-  // ── Helper: create favicon canvas with dark rounded bg + cyan logo ──
-  async function createFavicon(size, padding = 0.15) {
-    const canvasSize = size;
-    const pad = Math.round(canvasSize * padding);
-    const logoSize = canvasSize - pad * 2;
-
-    const bgSvg = `<svg width="${canvasSize}" height="${canvasSize}" xmlns="http://www.w3.org/2000/svg">
-      <rect width="${canvasSize}" height="${canvasSize}" rx="${Math.round(canvasSize * 0.22)}" fill="${BG_SURFACE}"/>
-    </svg>`;
-
-    const bgBuffer = await sharp(Buffer.from(bgSvg)).png().toBuffer();
-    const logoResized = await sharp(cyanLogoBuffer)
-      .resize(logoSize, logoSize, { fit: "inside", withoutEnlargement: true })
-      .toBuffer();
-
-    const logoMeta = await sharp(logoResized).metadata();
-    const offsetX = Math.round((canvasSize - (logoMeta.width || logoSize)) / 2);
-    const offsetY = Math.round((canvasSize - (logoMeta.height || logoSize)) / 2);
-
-    return sharp(bgBuffer)
-      .composite([{ input: logoResized, top: offsetY, left: offsetX }])
+  // ── Helper: create transparent favicon with cyan logo filling 100% ──
+  async function createFavicon(size) {
+    return sharp(cyanLogoBuffer)
+      .resize(size, size, { fit: "cover", withoutEnlargement: true })
       .png()
       .toBuffer();
   }
 
   // ── Standard PNG favicons ──
   const pngSizes = [
-    { name: "favicon-16x16.png", size: 16, padding: 0.1 },
-    { name: "favicon-32x32.png", size: 32, padding: 0.12 },
-    { name: "favicon-48x48.png", size: 48, padding: 0.15 },
+    { name: "favicon-16x16.png", size: 16 },
+    { name: "favicon-32x32.png", size: 32 },
+    { name: "favicon-48x48.png", size: 48 },
   ];
 
-  for (const { name, size, padding } of pngSizes) {
-    const buf = await createFavicon(size, padding);
+  for (const { name, size } of pngSizes) {
+    const buf = await createFavicon(size);
     fs.writeFileSync(path.join(outDir, name), buf);
     console.log(`✓ ${name}`);
   }
@@ -76,7 +59,7 @@ async function main() {
   // ── Apple touch icons ──
   const appleSizes = [57, 60, 72, 76, 114, 120, 144, 152, 167, 180];
   for (const size of appleSizes) {
-    const buf = await createFavicon(size, 0.18);
+    const buf = await createFavicon(size);
     fs.writeFileSync(path.join(outDir, `apple-touch-icon-${size}x${size}.png`), buf);
     console.log(`✓ apple-touch-icon-${size}x${size}.png`);
   }
@@ -84,7 +67,7 @@ async function main() {
   // ── Android Chrome icons ──
   const androidSizes = [36, 48, 72, 96, 144, 192, 256, 384, 512];
   for (const size of androidSizes) {
-    const buf = await createFavicon(size, 0.18);
+    const buf = await createFavicon(size);
     fs.writeFileSync(path.join(outDir, `android-chrome-${size}x${size}.png`), buf);
     console.log(`✓ android-chrome-${size}x${size}.png`);
   }
@@ -96,59 +79,30 @@ async function main() {
     { name: "mstile-310x310.png", size: 310 },
   ];
   for (const { name, size } of msSizes) {
-    const buf = await createFavicon(size, 0.18);
+    const buf = await createFavicon(size);
     fs.writeFileSync(path.join(outDir, name), buf);
     console.log(`✓ ${name}`);
   }
 
   // Wide tile
   const wideW = 310, wideH = 150;
-  const widePad = Math.round(wideH * 0.15);
-  const wideLogoSize = wideH - widePad * 2;
-  const wideBg = `<svg width="${wideW}" height="${wideH}" xmlns="http://www.w3.org/2000/svg">
-    <rect width="${wideW}" height="${wideH}" fill="${BG_SURFACE}"/>
-  </svg>`;
-  const wideBgBuf = await sharp(Buffer.from(wideBg)).png().toBuffer();
-  const wideLogo = await sharp(cyanLogoBuffer)
-    .resize(wideLogoSize, wideLogoSize, { fit: "inside", withoutEnlargement: true })
-    .toBuffer();
-  const wideMeta = await sharp(wideLogo).metadata();
-  await sharp(wideBgBuf)
-    .composite([{
-      input: wideLogo,
-      top: Math.round((wideH - (wideMeta.height || wideLogoSize)) / 2),
-      left: Math.round((wideW - (wideMeta.width || wideLogoSize)) / 2),
-    }])
+  await sharp(cyanLogoBuffer)
+    .resize(wideW, wideH, { fit: "cover", withoutEnlargement: true })
     .png()
     .toFile(path.join(outDir, "mstile-310x150.png"));
   console.log("✓ mstile-310x150.png");
 
   // ── Maskable icon ──
-  const maskSize = 512;
-  const maskPad = Math.round(maskSize * 0.1);
-  const maskLogoSize = maskSize - maskPad * 2;
-  const maskBg = `<svg width="${maskSize}" height="${maskSize}" xmlns="http://www.w3.org/2000/svg">
-    <rect width="${maskSize}" height="${maskSize}" fill="${BG_SURFACE}"/>
-  </svg>`;
-  const maskBgBuf = await sharp(Buffer.from(maskBg)).png().toBuffer();
-  const maskLogo = await sharp(cyanLogoBuffer)
-    .resize(maskLogoSize, maskLogoSize, { fit: "inside", withoutEnlargement: true })
-    .toBuffer();
-  const maskMeta = await sharp(maskLogo).metadata();
-  await sharp(maskBgBuf)
-    .composite([{
-      input: maskLogo,
-      top: Math.round((maskSize - (maskMeta.height || maskLogoSize)) / 2),
-      left: Math.round((maskSize - (maskMeta.width || maskLogoSize)) / 2),
-    }])
+  await sharp(cyanLogoBuffer)
+    .resize(512, 512, { fit: "cover", withoutEnlargement: true })
     .png()
     .toFile(path.join(outDir, "maskable-icon.png"));
   console.log("✓ maskable-icon.png");
 
   // ── FAVICON.ICO using png-to-ico (multi-res) ──
-  const icoBuf16 = await createFavicon(16, 0.1);
-  const icoBuf32 = await createFavicon(32, 0.12);
-  const icoBuf48 = await createFavicon(48, 0.15);
+  const icoBuf16 = await createFavicon(16);
+  const icoBuf32 = await createFavicon(32);
+  const icoBuf48 = await createFavicon(48);
 
   const { default: pngToIco } = await import("png-to-ico");
   const icoData = await pngToIco([icoBuf16, icoBuf32, icoBuf48]);
@@ -163,16 +117,14 @@ async function main() {
         <stop offset="100%" stop-color="#f59e0b"/>
       </linearGradient>
     </defs>
-    <rect width="100" height="100" rx="22" fill="${BG_SURFACE}"/>
-    <text x="50" y="66" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="900" fill="url(#fcg)">KRX</text>
+    <text x="50" y="72" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900" fill="url(#fcg)">KRX</text>
   </svg>`;
   fs.writeFileSync(path.join(outDir, "favicon.svg"), faviconSvg);
   console.log("✓ favicon.svg");
 
   // ── Safari pinned tab ──
   const safariPinSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <rect width="100" height="100" rx="20" fill="${BG_SURFACE}"/>
-    <text x="50" y="66" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="900" fill="${ACCENT}">K</text>
+    <text x="50" y="78" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="900" fill="${ACCENT}">K</text>
   </svg>`;
   fs.writeFileSync(path.join(outDir, "safari-pinned-tab.svg"), safariPinSvg);
   console.log("✓ safari-pinned-tab.svg");
