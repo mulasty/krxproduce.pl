@@ -72,8 +72,10 @@ export default function MoodBoard() {
   }, []);
 
   return (
-    <section ref={container} className="section-glass relative z-[1] overflow-hidden py-36">
-      <div className="mx-auto max-w-7xl px-6">
+    <section ref={container} className="section-glass relative z-[1] overflow-hidden bg-black/55 py-36 backdrop-blur-[2px]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_34%,rgba(34,211,238,0.10),transparent_26rem),radial-gradient(circle_at_78%_58%,rgba(245,158,11,0.09),transparent_28rem)]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/55" />
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="mb-16 grid gap-8 md:grid-cols-[0.95fr_1.05fr] md:items-end">
           <div>
             <span className="section-label">Visual direction</span>
