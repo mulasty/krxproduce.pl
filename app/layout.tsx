@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/smooth-scroll";
 import SceneWrapper from "@/components/scene-wrapper";
 import CustomCursor from "@/components/custom-cursor";
+import AudioProvider from "@/components/audio-system";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -219,9 +220,11 @@ export default function RootLayout({
         >
           Przejdź do treści
         </a>
-        <CustomCursor />
-        <SceneWrapper />
-        <SmoothScroll>{children}</SmoothScroll>
+        <AudioProvider>
+          <CustomCursor />
+          <SceneWrapper />
+          <SmoothScroll>{children}</SmoothScroll>
+        </AudioProvider>
       </body>
     </html>
   );

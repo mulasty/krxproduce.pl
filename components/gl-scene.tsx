@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { EffectComposer, Bloom, ChromaticAberration } from "@react-three/postprocessing";
 import * as THREE from "three";
+import { audioFrequency } from "./audio-system";
 
 const CYAN = new THREE.Color("#22d3ee");
 const AMBER = new THREE.Color("#f59e0b");
@@ -48,11 +49,13 @@ function MouseParticles({
   useFrame(() => {
     if (!mesh.current) return;
     const pos = mesh.current.geometry.attributes.position.array as Float32Array;
+    const freq = audioFrequency.current;
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      pos[i3] += velocities[i3] + mouse.current.x * 0.003;
-      pos[i3 + 1] += velocities[i3 + 1] + mouse.current.y * 0.003;
-      pos[i3 + 2] += velocities[i3 + 2];
+      const speedBoost = 1 + freq * 3;
+      pos[i3] += velocities[i3] * speedBoost + mouse.current.x * 0.003;
+      pos[i3 + 1] += velocities[i3 + 1] * speedBoost + mouse.current.y * 0.003;
+      pos[i3 + 2] += velocities[i3 + 2] * speedBoost;
       const halfW = viewport.width;
       const halfH = viewport.height;
       if (pos[i3] > halfW) pos[i3] = -halfW;
@@ -63,6 +66,9 @@ function MouseParticles({
       if (pos[i3 + 2] < -4) pos[i3 + 2] = 4;
     }
     mesh.current.geometry.attributes.position.needsUpdate = true;
+    const size = 0.04 + freq * 0.08;
+    (mesh.current.material as THREE.PointsMaterial).size = size;
+    (mesh.current.material as THREE.PointsMaterial).opacity = 0.4 + freq * 0.6;
   });
 
   return (
@@ -104,6 +110,11 @@ function MorphingShape({
 
     const floatOffset = Math.sin(Date.now() * 0.001 + position[0]) * 0.15;
     mesh.current.position.y += floatOffset * delta;
+
+    const f = audioFrequency.current;
+    const pulse = 1 + f * 0.15;
+    mesh.current.scale.setScalar(pulse);
+    material.current.emissiveIntensity = 0.3 + f * 0.8;
   });
 
   return (
@@ -145,8 +156,10 @@ function IcosahedronShape({
     mesh.current.position.x += (position[0] + tx - mesh.current.position.x) * 0.02;
     mesh.current.position.y += (position[1] - ty - mesh.current.position.y) * 0.02;
 
-    const pulse = 1 + Math.sin(Date.now() * 0.002) * 0.05;
+    const f = audioFrequency.current;
+    const pulse = 1 + Math.sin(Date.now() * 0.002) * 0.05 + f * 0.12;
     mesh.current.scale.setScalar(pulse);
+    material.current.emissiveIntensity = 0.25 + f * 0.7;
   });
 
   return (
@@ -159,7 +172,6 @@ function IcosahedronShape({
         emissiveIntensity={0.3}
         roughness={0.2}
         metalness={0.8}
-        wireframe={false}
         transparent
         opacity={0.9}
       />

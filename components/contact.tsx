@@ -1,95 +1,85 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ContactForm from "./contact-form";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Contact() {
+  const container = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".contact-item",
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 75%",
+          },
+        }
+      );
+    }, container);
+    return () => ctx.revert();
+  }, []);
+
+  const contactInfo = [
+    { label: "Email", value: "kontakt@krxproduce.pl", href: "mailto:kontakt@krxproduce.pl" },
+    { label: "Phone", value: "+48 509 379 206", href: "tel:+48509379206" },
+    { label: "Location", value: "Warsaw / Remote" },
+  ];
+
   return (
-    <section id="kontakt" className="section-gradient relative py-32 overflow-hidden">
-      <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-accent/5 blur-[150px]" />
-
-      <div className="relative mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
-        >
-          <span className="mb-3 inline-block text-sm font-medium uppercase tracking-widest text-accent">
-            Kontakt
-          </span>
-          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-            Porozmawiajmy
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-neutral-400">
-            Masz pytanie lub chcesz się spotkać? Skontaktuj się ze mną już dziś,
-            a z przyjemnością odpowiem na Twoje pytania i pomogę Ci we
-            wszystkich sprawach związanych z projektem.
+    <section id="kontakt" ref={container} className="section-glass relative z-[1] py-40">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-20 max-w-xl">
+          <span className="section-label">Contact</span>
+          <h2 className="section-title">Let&apos;s talk</h2>
+          <p className="section-subtitle">
+            Have a project in mind? We&apos;d love to hear about it
           </p>
-        </motion.div>
+        </div>
 
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Contact form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
+          {/* Form */}
+          <div className="contact-item">
             <ContactForm />
-          </motion.div>
+          </div>
 
-          {/* Contact cards */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col justify-center gap-6"
-          >
-            <motion.a
-              href="mailto:kontakt@krxproduce.pl"
-              whileHover={{ y: -4 }}
-              className="flex items-center gap-6 rounded-2xl border border-white/10 bg-surface p-6 transition-colors hover:border-accent/30"
-            >
-              <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-                <Mail size={22} />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">E-mail</h3>
-                <p className="text-sm text-neutral-400">kontakt@krxproduce.pl</p>
-              </div>
-            </motion.a>
+          {/* Info */}
+          <div className="contact-item flex flex-col justify-between gap-10">
+            <div className="space-y-8">
+              {contactInfo.map((info) => (
+                <div key={info.label}>
+                  <p className="mb-1 text-xs tracking-widest text-neutral-600 uppercase">
+                    {info.label}
+                  </p>
+                  {info.href ? (
+                    <a
+                      href={info.href}
+                      className="text-lg text-white/70 transition-colors hover:text-white"
+                    >
+                      {info.value}
+                    </a>
+                  ) : (
+                    <p className="text-lg text-white/70">{info.value}</p>
+                  )}
+                </div>
+              ))}
+            </div>
 
-            <motion.a
-              href="tel:+48601477510"
-              whileHover={{ y: -4 }}
-              className="flex items-center gap-6 rounded-2xl border border-white/10 bg-surface p-6 transition-colors hover:border-accent-warm/30"
-            >
-              <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-warm/10 text-accent-warm">
-                <Phone size={22} />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">Telefon</h3>
-                <p className="text-sm text-neutral-400">+48 601 477 510</p>
-              </div>
-            </motion.a>
-
-            <motion.div
-              whileHover={{ y: -4 }}
-              className="flex items-center gap-6 rounded-2xl border border-white/10 bg-surface p-6 transition-colors hover:border-white/20"
-            >
-              <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/5 text-white">
-                <MapPin size={22} />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">Lokalizacja</h3>
-                <p className="text-sm text-neutral-400">Polska / Zdalnie</p>
-              </div>
-            </motion.div>
-          </motion.div>
+            <p className="text-xs text-neutral-700">
+              &copy; {new Date().getFullYear()} KRX Produce. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </section>
