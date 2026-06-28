@@ -1,14 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Scene from "./scene";
+import dynamic from "next/dynamic";
+
+const Scene3D = dynamic(() => import("./gl-scene").then((m) => ({ default: m.Scene3D })), {
+  ssr: false,
+});
 
 export default function Hero3DSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* 3D Scene background */}
       <div className="absolute inset-0" aria-hidden="true">
-        <Scene />
+        <Scene3D />
       </div>
 
       {/* Gradient overlays */}

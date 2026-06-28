@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/smooth-scroll";
+import SceneWrapper from "@/components/scene-wrapper";
 import CustomCursor from "@/components/custom-cursor";
 import "./globals.css";
 
@@ -219,6 +220,7 @@ export default function RootLayout({
           Przejdź do treści
         </a>
         <CustomCursor />
+        <SceneWrapper />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

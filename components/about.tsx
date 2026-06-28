@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Volume2, VolumeX, Play, Pause } from "lucide-react";
 
@@ -44,75 +44,69 @@ export default function About() {
   }, []);
 
   return (
-    <section id="omnie" className="section-gradient section-grid relative overflow-hidden">
-      {/* Hero 2 — Video on top */}
-      <div className="relative w-full">
-        <div className="mx-auto aspect-video w-full max-w-6xl overflow-hidden rounded-none sm:rounded-2xl sm:my-8">
-          <iframe
-            ref={iframeRef}
-            src={videoSrc}
-            title="KRX Produce — film pokazowy"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            className="h-full w-full pointer-events-none"
-            style={{ filter: "brightness(1.35) contrast(1.05)" }}
-          ></iframe>
+    <section id="omnie" className="section-glass relative z-[1] overflow-hidden py-40">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-20 max-w-xl">
+          <span className="section-label">About</span>
+          <h2 className="section-title">The studio</h2>
+          <p className="section-subtitle">
+            We combine filmmaking and graphic design to create compelling visual stories
+          </p>
         </div>
 
-        {/* Controls on video */}
-        <div className="absolute right-4 top-4 z-30 flex items-center gap-3 sm:right-8 sm:top-8">
-          <button
-            onClick={togglePlay}
-            aria-label={isPlaying ? "Pauza" : "Odtwarzaj"}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 hover:scale-110 border border-white/10"
-          >
-            {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-          </button>
-          <button
-            onClick={toggleMute}
-            aria-label={muted ? "Włącz dźwięk" : "Wyłącz dźwięk"}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 hover:scale-110 border border-white/10"
-          >
-            {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-          </button>
-        </div>
-      </div>
+        {/* Video */}
+        <div className="relative mx-auto mb-20 max-w-5xl">
+          <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/[0.06] bg-black/40">
+            <iframe
+              ref={iframeRef}
+              src={videoSrc}
+              title="KRX Produce — showreel"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="h-full w-full"
+              style={{ filter: "brightness(1.2) contrast(1.05)" }}
+            />
 
-      {/* Text below video */}
-      <div className="relative mx-auto max-w-4xl px-6 py-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="mb-3 inline-block text-sm font-medium uppercase tracking-widest text-accent-warm">
-            O mnie
-          </span>
-          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-            Kilka słów o mnie
-          </h2>
-          <div className="mt-8 space-y-5 text-lg text-neutral-300 leading-relaxed">
-            <p>
-              Jestem doświadczonym grafikiem zajmującym się tą dziedziną od
-              wielu lat. Moje doświadczenie obejmuje pracę zarówno w agencjach
-              reklamowych, jak i w firmach powiązanych z tą branżą.
-            </p>
-            <p>
-              Posiadam szeroką wiedzę na temat reklamy wizualnej oraz
-              umiejętność przygotowania plików pod druk. Chętnie zaproponuję
-              Ci ciekawą i przyciągającą oko szatę graficzną.
-            </p>
-            <p>
-              Moje umiejętności obejmują projektowanie wizytówek, ulotek,
-              plakatów, banerów, logotypów oraz materiałów do mediów
-              społecznościowych. Zajmuję się również filmowaniem,
-              postprodukcją, reklamami video oraz montażem.
-            </p>
+            {/* Controls */}
+            <div className="absolute bottom-4 right-4 z-10 flex items-center gap-2">
+              <button
+                onClick={togglePlay}
+                aria-label={isPlaying ? "Pause" : "Play"}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white/80 backdrop-blur-md transition-all hover:bg-black/70 hover:text-white"
+              >
+                {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+              </button>
+              <button
+                onClick={toggleMute}
+                aria-label={muted ? "Unmute" : "Mute"}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white/80 backdrop-blur-md transition-all hover:bg-black/70 hover:text-white"
+              >
+                {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+              </button>
+            </div>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Text */}
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-lg leading-relaxed text-neutral-400">
+            Experienced graphic designer with years of work in advertising agencies
+            and brand-related companies. Specializing in visual advertising, print
+            preparation, and eye-catching graphic design.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-8">
+            {["Branding", "Print", "Motion", "Video"].map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-white/[0.06] bg-white/[0.03] px-5 py-2 text-xs tracking-wider text-neutral-500 uppercase"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
