@@ -5,18 +5,18 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 
 const images = [
-  { src: "/images/portfolio/Dzieciaki.jpg", size: "col-span-1 row-span-2" },
-  { src: "/images/portfolio/ICE-CREAM-day.jpg", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/Isotonic-baner.jpg", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/Grandpa-DAY.jpg", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/keep-sleep-shot.jpg", size: "col-span-1 row-span-2" },
-  { src: "/images/portfolio/strawberry-jjelly-small.png", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/wiosenne-promo.jpg", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/WPI-saszetki-banner-1080x1080-.jpg", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/post-ojca.jpg", size: "col-span-1 row-span-2" },
-  { src: "/images/portfolio/L-carnitine-5000.jpg", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/Peanut-Butter-protein.jpg", size: "col-span-1 row-span-1" },
-  { src: "/images/portfolio/1080x1080-kopia.jpg", size: "col-span-1 row-span-1" },
+  { src: "/images/portfolio/Dzieciaki.jpg", size: "col-span-1 row-span-2", alt: "Projekt graficzny — kampania Dzieciaki, kolorowa kompozycja z postaciami" },
+  { src: "/images/portfolio/ICE-CREAM-day.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — baner promocyjny ICE CREAM Day" },
+  { src: "/images/portfolio/Isotonic-baner.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — baner reklamowy napoju izotonicznego" },
+  { src: "/images/portfolio/Grandpa-DAY.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — baner promocyjny Grandpa DAY" },
+  { src: "/images/portfolio/keep-sleep-shot.jpg", size: "col-span-1 row-span-2", alt: "Projekt graficzny — kampania Keep Sleep Shot, fotografia produktowa" },
+  { src: "/images/portfolio/strawberry-jjelly-small.png", size: "col-span-1 row-span-1", alt: "Projekt graficzny — opakowanie Strawberry Jelly, projekt etykiety" },
+  { src: "/images/portfolio/wiosenne-promo.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — baner wiosennej promocji produktów" },
+  { src: "/images/portfolio/WPI-saszetki-banner-1080x1080-.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — baner saszetek WPI, kompozycja produktowa" },
+  { src: "/images/portfolio/post-ojca.jpg", size: "col-span-1 row-span-2", alt: "Projekt graficzny — grafika społecznościowa na Dzień Ojca" },
+  { src: "/images/portfolio/L-carnitine-5000.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — baner L-Carnitine 5000, grafika produktowa" },
+  { src: "/images/portfolio/Peanut-Butter-protein.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — baner Peanut Butter Protein, opakowanie i produkt" },
+  { src: "/images/portfolio/1080x1080-kopia.jpg", size: "col-span-1 row-span-1", alt: "Projekt graficzny — post społecznościowy 1080x1080, kompozycja marketingowa" },
 ];
 
 const videos = [
@@ -59,7 +59,7 @@ export default function Portfolio() {
             >
               <Image
                 src={img.src}
-                alt=""
+                alt={img.alt}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -82,10 +82,8 @@ export default function Portfolio() {
               className="group relative overflow-hidden rounded-2xl border border-white/10 bg-surface col-span-1 row-span-2"
             >
               <iframe
-                width="100%"
-                height="100%"
                 src={videoUrl}
-                title="YouTube video player"
+                title={`KRX Produce — wideo portfolio ${index + 1}`}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"

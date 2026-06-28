@@ -50,10 +50,8 @@ export default function About() {
         <div className="mx-auto aspect-video w-full max-w-6xl overflow-hidden rounded-none sm:rounded-2xl sm:my-8">
           <iframe
             ref={iframeRef}
-            width="100%"
-            height="100%"
             src={videoSrc}
-            title="YouTube video player"
+            title="KRX Produce — film pokazowy"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"

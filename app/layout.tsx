@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://krxproducepl.vercel.app";
+const SITE_URL = "https://krxproduce.pl";
 const OG_IMAGE = `${SITE_URL}/og-image.png?v=2`;
 
 export const viewport: Viewport = {
@@ -104,12 +104,90 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <meta property="og:image:secure_url" content={OG_IMAGE} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              "name": "KRX Produce",
+              "description": "Profesjonalne usługi filmowania, montażu, projektowania graficznego i identyfikacji wizualnej.",
+              "url": "https://krxproduce.pl",
+              "email": "kontakt@krxproduce.pl",
+              "telephone": "+48601477510",
+              "image": "https://krxproduce.pl/og-image.png",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "PL",
+              },
+              "sameAs": [
+                "https://www.facebook.com/KRXPRODUCE",
+                "https://www.instagram.com/krxproduce/",
+                "https://www.youtube.com/@merol1",
+              ],
+              "areaServed": {
+                "@type": "Country",
+                "name": "Polska",
+              },
+              "priceRange": "$$",
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "17:00",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "itemListElement": [
+                {
+                  "@type": "Service",
+                  "position": 1,
+                  "name": "Projektowanie Graficzne",
+                  "description": "Unikalne projekty graficzne, które wyróżniają Twoją markę. Od logo po materiały marketingowe.",
+                  "provider": { "@type": "ProfessionalService", "name": "KRX Produce", "url": "https://krxproduce.pl" },
+                },
+                {
+                  "@type": "Service",
+                  "position": 2,
+                  "name": "Animacja i Efekty",
+                  "description": "Dynamiczne i porywające animacje, które przyciągną uwagę Twojej publiczności.",
+                  "provider": { "@type": "ProfessionalService", "name": "KRX Produce", "url": "https://krxproduce.pl" },
+                },
+                {
+                  "@type": "Service",
+                  "position": 3,
+                  "name": "Identyfikacja Wizualna",
+                  "description": "Spójne identyfikacje wizualne reprezentujące charakter Twojej marki.",
+                  "provider": { "@type": "ProfessionalService", "name": "KRX Produce", "url": "https://krxproduce.pl" },
+                },
+                {
+                  "@type": "Service",
+                  "position": 4,
+                  "name": "Montaż Filmowy",
+                  "description": "Profesjonalna postprodukcja — reklamy, filmy korporacyjne, vlogi.",
+                  "provider": { "@type": "ProfessionalService", "name": "KRX Produce", "url": "https://krxproduce.pl" },
+                },
+              ],
+            }),
+          }}
+        />
       </head>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
+        >
+          Przejdź do treści
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

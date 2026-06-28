@@ -17,6 +17,7 @@ export default function Hero() {
         preload="auto"
         className="absolute inset-0 h-full w-full object-cover"
         style={{ filter: "brightness(1.4) contrast(1.1)" }}
+        aria-hidden="true"
       >
         <source src="/videos/7963111-uhd_3840_2160_25fps.mp4" type="video/mp4" />
       </video>
