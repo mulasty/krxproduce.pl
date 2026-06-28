@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import SplitText from "./split-text";
 import MagneticButton from "./magnetic-button";
-import Scene from "./scene";
 
 export default function Hero() {
   return (
@@ -29,11 +28,6 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/5 to-background/30" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/10 via-transparent to-background/10" />
       <div className="absolute inset-0 bg-black/5" />
-
-      {/* Three.js scene overlay */}
-      <div className="absolute inset-0 z-[1]" aria-hidden="true">
-        <Scene />
-      </div>
 
       {/* Subtle noise/grain texture */}
       <div
