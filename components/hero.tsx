@@ -55,7 +55,7 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
-        className="absolute inset-0 h-full w-full object-cover opacity-70"
+        className="absolute inset-0 h-full w-full object-cover opacity-100"
         style={{ filter: "brightness(3) contrast(1.0) saturate(1.0)" }}
         aria-hidden="true"
       >
