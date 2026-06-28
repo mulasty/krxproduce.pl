@@ -1,6 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SplitText from "./split-text";
+import MagneticButton from "./magnetic-button";
+import Scene from "./scene";
 
 export default function Hero() {
   return (
@@ -22,14 +25,19 @@ export default function Hero() {
         <source src="/videos/7963111-uhd_3840_2160_25fps.mp4" type="video/mp4" />
       </video>
 
-      {/* Gradient overlays for readability — very light to show video */}
+      {/* Gradient overlays for readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/5 to-background/30" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/10 via-transparent to-background/10" />
       <div className="absolute inset-0 bg-black/5" />
 
+      {/* Three.js scene overlay */}
+      <div className="absolute inset-0 z-[1]" aria-hidden="true">
+        <Scene />
+      </div>
+
       {/* Subtle noise/grain texture */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        className="pointer-events-none absolute inset-0 z-[2] opacity-[0.07]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
@@ -50,19 +58,31 @@ export default function Hero() {
           Otwarty na nowe projekty
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="text-5xl font-bold leading-tight tracking-tight text-white sm:text-7xl lg:text-8xl"
-        >
-          Filmowanie{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-warm">
-            &
+        <h1 className="text-5xl font-bold leading-tight tracking-tight text-white sm:text-7xl lg:text-8xl">
+          <SplitText
+            text="Filmowanie"
+            as="span"
+            delay={0.4}
+            stagger={0.04}
+            className="inline-block"
+          />{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-warm inline-block">
+            <SplitText
+              text="&"
+              as="span"
+              delay={0.4}
+              stagger={0.04}
+            />
           </span>{" "}
           <br className="hidden sm:block" />
-          Projektowanie Graficzne
-        </motion.h1>
+          <SplitText
+            text="Projektowanie Graficzne"
+            as="span"
+            delay={0.4}
+            stagger={0.03}
+            className="inline-block"
+          />
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -80,18 +100,18 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.8 }}
           className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <a
+          <MagneticButton
             href="#portfolio"
-            className="inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-sm font-semibold text-black transition-transform hover:scale-105 hover:bg-cyan-300"
+            className="inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-sm font-semibold text-black transition-all hover:bg-cyan-300"
           >
             Zobacz portfolio
-          </a>
-          <a
+          </MagneticButton>
+          <MagneticButton
             href="#kontakt"
             className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 text-sm font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10"
           >
             Skontaktuj się
-          </a>
+          </MagneticButton>
         </motion.div>
       </div>
 

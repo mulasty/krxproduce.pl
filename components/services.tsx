@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Palette, Sparkles, Fingerprint, Clapperboard } from "lucide-react";
+import TiltCard from "./tilt-card";
 
 const services = [
   {
@@ -32,7 +33,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="uslugi" className="relative py-32">
+    <section id="uslugi" className="section-gradient relative py-32">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -54,14 +55,9 @@ export default function Services() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
-            <motion.div
+            <TiltCard
               key={service.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-surface p-8 transition-colors hover:border-accent/30 hover:bg-surface-elevated"
+              className="group rounded-2xl border border-white/10 bg-surface p-8 transition-colors hover:border-accent/30 hover:bg-surface-elevated"
             >
               <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
                 <service.icon size={24} />
@@ -73,7 +69,7 @@ export default function Services() {
                 {service.description}
               </p>
               <div className="absolute -bottom-8 -right-8 h-24 w-24 rounded-full bg-accent/5 blur-2xl transition-all group-hover:bg-accent/10" />
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
       </div>

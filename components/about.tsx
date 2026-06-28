@@ -44,7 +44,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="omnie" className="relative overflow-hidden">
+    <section id="omnie" className="section-gradient section-grid relative overflow-hidden">
       {/* Hero 2 — Video on top */}
       <div className="relative w-full">
         <div className="mx-auto aspect-video w-full max-w-6xl overflow-hidden rounded-none sm:rounded-2xl sm:my-8">

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import SmoothScroll from "@/components/smooth-scroll";
+import CustomCursor from "@/components/custom-cursor";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -216,7 +218,8 @@ export default function RootLayout({
         >
           Przejdź do treści
         </a>
-        {children}
+        <CustomCursor />
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
