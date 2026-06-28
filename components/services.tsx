@@ -13,24 +13,28 @@ const services = [
     icon: Palette,
     title: "Graphic Design",
     description: "Unique designs that make your brand stand out. From logos to marketing materials — every detail matters.",
+    meta: "Identity / Print / Campaign",
     gradient: "from-cyan-500/10 to-blue-500/5",
   },
   {
     icon: Sparkles,
     title: "Animation & VFX",
     description: "Dynamic animations and visual effects that captivate your audience and amplify your message.",
+    meta: "Motion / Effects / Social",
     gradient: "from-amber-500/10 to-orange-500/5",
   },
   {
     icon: Fingerprint,
     title: "Brand Identity",
     description: "Cohesive visual identities that represent your brand's character at every touchpoint.",
+    meta: "Logo / System / Guidelines",
     gradient: "from-cyan-500/10 to-amber-500/5",
   },
   {
     icon: Clapperboard,
     title: "Film Editing",
     description: "Professional post-production for commercials, corporate films, and video content at a world-class level.",
+    meta: "Edit / Color / Sound",
     gradient: "from-blue-500/10 to-cyan-500/5",
   },
 ];
@@ -76,17 +80,24 @@ export default function Services() {
           {services.map((service, i) => (
             <TiltCard
               key={service.title}
-              className="service-card group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm transition-all hover:border-white/10 hover:bg-white/[0.04]"
+              className="service-card group relative min-h-[320px] overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.018] p-8 backdrop-blur-sm transition-all hover:border-white/14 hover:bg-white/[0.045]"
             >
-              <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${service.gradient} border border-white/[0.06]`}>
+              <div className="pointer-events-none absolute -right-3 -top-6 text-[8rem] font-black leading-none tracking-[-0.12em] text-white/[0.025] transition-colors group-hover:text-white/[0.045]">
+                0{i + 1}
+              </div>
+              <div className={`mb-8 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${service.gradient} border border-white/[0.08] shadow-[0_0_40px_rgba(34,211,238,0.08)]`}>
                 <service.icon size={20} className="text-white/80" />
               </div>
-              <h3 className="mb-3 text-base font-medium text-white/90">
+              <p className="mb-3 text-[10px] uppercase tracking-[0.24em] text-white/28">
+                {service.meta}
+              </p>
+              <h3 className="mb-4 max-w-[10rem] text-xl font-semibold tracking-tight text-white/92">
                 {service.title}
               </h3>
               <p className="text-sm leading-relaxed text-neutral-500">
                 {service.description}
               </p>
+              <div className="absolute bottom-6 left-8 right-8 h-px origin-left scale-x-0 bg-gradient-to-r from-cyan-300/70 to-amber-300/40 transition-transform duration-500 group-hover:scale-x-100" />
             </TiltCard>
           ))}
         </div>
