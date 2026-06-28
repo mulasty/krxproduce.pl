@@ -13,7 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL = "https://krxproduce.pl";
-const OG_IMAGE = `${SITE_URL}/og-image.png?v=2`;
+const OG_IMAGE = `${SITE_URL}/og-image.png?v=3`;
+const OG_SQUARE = `${SITE_URL}/og-square.png?v=1`;
 
 export const viewport: Viewport = {
   themeColor: "#050505",
@@ -61,6 +62,13 @@ export const metadata: Metadata = {
         alt: "KRX Produce — Filmowanie & Projektowanie Graficzne",
         type: "image/png",
       },
+      {
+        url: OG_SQUARE,
+        width: 1080,
+        height: 1080,
+        alt: "KRX Produce — Filmowanie & Projektowanie Graficzne",
+        type: "image/png",
+      },
     ],
   },
   twitter: {
@@ -74,8 +82,21 @@ export const metadata: Metadata = {
     icon: [
       { url: `${SITE_URL}/favicon-16x16.png`, sizes: "16x16", type: "image/png" },
       { url: `${SITE_URL}/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
+      { url: `${SITE_URL}/favicon-48x48.png`, sizes: "48x48", type: "image/png" },
+      { url: `${SITE_URL}/favicon.svg`, type: "image/svg+xml" },
     ],
-    apple: `${SITE_URL}/apple-touch-icon.png`,
+    apple: [
+      { url: `${SITE_URL}/apple-touch-icon-57x57.png`, sizes: "57x57" },
+      { url: `${SITE_URL}/apple-touch-icon-60x60.png`, sizes: "60x60" },
+      { url: `${SITE_URL}/apple-touch-icon-72x72.png`, sizes: "72x72" },
+      { url: `${SITE_URL}/apple-touch-icon-76x76.png`, sizes: "76x76" },
+      { url: `${SITE_URL}/apple-touch-icon-114x114.png`, sizes: "114x114" },
+      { url: `${SITE_URL}/apple-touch-icon-120x120.png`, sizes: "120x120" },
+      { url: `${SITE_URL}/apple-touch-icon-144x144.png`, sizes: "144x144" },
+      { url: `${SITE_URL}/apple-touch-icon-152x152.png`, sizes: "152x152" },
+      { url: `${SITE_URL}/apple-touch-icon-167x167.png`, sizes: "167x167" },
+      { url: `${SITE_URL}/apple-touch-icon-180x180.png`, sizes: "180x180" },
+    ],
     shortcut: `${SITE_URL}/favicon.ico`,
   },
   manifest: `${SITE_URL}/manifest.json`,
@@ -85,11 +106,17 @@ export const metadata: Metadata = {
     title: "KRX Produce",
   },
   other: {
-    "msapplication-TileColor": "#22d3ee",
-    "msapplication-TileImage": `${SITE_URL}/android-chrome-192x192.png`,
-    "msapplication-config": "none",
+    "msapplication-TileColor": "#050505",
+    "msapplication-TileImage": `${SITE_URL}/mstile-150x150.png`,
+    "msapplication-config": `${SITE_URL}/browserconfig.xml`,
+    "msapplication-square70x70logo": `${SITE_URL}/mstile-70x70.png`,
+    "msapplication-square150x150logo": `${SITE_URL}/mstile-150x150.png`,
+    "msapplication-wide310x150logo": `${SITE_URL}/mstile-310x150.png`,
+    "msapplication-square310x310logo": `${SITE_URL}/mstile-310x310.png`,
     "og:image:secure_url": OG_IMAGE,
     "og:image:type": "image/png",
+    "og:image:width": "1200",
+    "og:image:height": "630",
   },
 };
 
@@ -104,6 +131,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <link rel="mask-icon" href={`${SITE_URL}/safari-pinned-tab.svg`} color="#22d3ee" />
+        <meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
