@@ -55,8 +55,8 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
-        className="absolute inset-0 h-full w-full object-cover opacity-40"
-        style={{ filter: "brightness(0.5) contrast(1.2) saturate(0.8)" }}
+        className="absolute inset-0 h-full w-full object-cover opacity-70"
+        style={{ filter: "brightness(3) contrast(1.0) saturate(1.0)" }}
         aria-hidden="true"
       >
         <source src="/videos/7963111-uhd_3840_2160_25fps.mp4" type="video/mp4" />
